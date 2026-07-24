@@ -1,0 +1,56 @@
+/* ============================================================
+   NeuroQuiz Layout
+   Container, header, page sections, grid helpers.
+============================================================ */
+
+/* ── Container ────────────────────────────────────────────── */
+.container {
+  width:           min(var(--container-max), 100%);
+  margin-inline:   auto;
+  padding-inline:  var(--container-pad);
+}
+
+/* ── Header ───────────────────────────────────────────────── */
+header {
+  display:         flex;
+  justify-content: space-between;
+  align-items:     center;
+  padding-block:   var(--space-8);
+  position:        relative;
+  z-index:         1000;
+}
+
+/* ── Page wrapper (quiz / result screens) ─────────────────── */
+.page {
+  min-height: 100vh;
+}
+
+/* ── Flex helpers ─────────────────────────────────────────── */
+.flex         { display: flex; }
+.flex-center  { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.flex-col     { display: flex; flex-direction: column; }
+.gap-2        { gap: var(--space-2); }
+.gap-3        { gap: var(--space-3); }
+.gap-4        { gap: var(--space-4); }
+.gap-6        { gap: var(--space-6); }
+
+/* ── Grid helpers ─────────────────────────────────────────── */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-6); }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6); }
+
+/* ── Spacing helpers ──────────────────────────────────────── */
+.mt-4  { margin-top:    var(--space-4); }
+.mt-6  { margin-top:    var(--space-6); }
+.mt-8  { margin-top:    var(--space-8); }
+.mb-4  { margin-bottom: var(--space-4); }
+.mb-6  { margin-bottom: var(--space-6); }
+.mb-8  { margin-bottom: var(--space-8); }
+.mx-auto { margin-inline: auto; }
+
+/* ── Width helpers ────────────────────────────────────────── */
+.w-full   { width: 100%; }
+.max-w-sm { max-width: 480px; }
+.max-w-md { max-width: 680px; }
+.max-w-lg { max-width: 860px; }

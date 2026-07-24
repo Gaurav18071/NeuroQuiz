@@ -1,0 +1,105 @@
+/* ============================================================
+   NeuroQuiz — Loader Styles  (Sprint 8)
+============================================================ */
+
+.nq-loader-overlay {
+  position:        fixed;
+  inset:           0;
+  background:      var(--bg);
+  z-index:         9000;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  padding:         var(--space-5);
+}
+
+.nq-loader-card {
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  gap:             var(--space-4);
+  max-width:       360px;
+  width:           100%;
+  text-align:      center;
+  padding:         var(--space-9) var(--space-8);
+  background:      var(--bg-glass);
+  border:          1px solid var(--border-light);
+  border-radius:   var(--radius-xl);
+  backdrop-filter: blur(var(--blur-lg));
+  box-shadow:      var(--shadow-xl);
+  position:        relative;
+  overflow:        hidden;
+}
+
+/* shimmer top edge */
+.nq-loader-card::before {
+  content:    "";
+  position:   absolute;
+  top: 0; left: 0;
+  width: 100%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+}
+
+.nq-loader-logo {
+  font-size: 3.5rem;
+  animation: nqLogoPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes nqLogoPulse {
+  0%, 100% { transform: scale(1);    filter: drop-shadow(0 0 0   rgba(0,229,255,0)); }
+  50%       { transform: scale(1.12); filter: drop-shadow(0 0 18px rgba(0,229,255,.6)); }
+}
+
+.nq-loader-title {
+  font-family:  var(--font-display);
+  font-size:    var(--text-2xl);
+  font-weight:  var(--fw-extrabold);
+  background:   var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin:       0;
+}
+
+.nq-loader-sub {
+  font-size:  var(--text-sm);
+  color:      var(--text-muted);
+  margin:     0;
+  min-height: 1.4em;
+  transition: opacity var(--transition-normal);
+}
+
+/* Progress track */
+.nq-loader-track {
+  width:         100%;
+  height:        6px;
+  background:    rgba(255,255,255,.08);
+  border-radius: 999px;
+  overflow:      hidden;
+}
+
+.nq-loader-bar {
+  height:        100%;
+  width:         0%;
+  background:    var(--gradient-primary);
+  border-radius: 999px;
+  position:      relative;
+}
+
+/* Shimmer sweep on the bar */
+.nq-loader-bar::after {
+  content:    "";
+  position:   absolute;
+  inset:      0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.4) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation:  shimmer 1.2s linear infinite;
+}
+
+.nq-loader-pct {
+  font-family:  var(--font-display);
+  font-size:    var(--text-sm);
+  font-weight:  var(--fw-bold);
+  color:        var(--color-primary);
+  letter-spacing: 0.05em;
+}

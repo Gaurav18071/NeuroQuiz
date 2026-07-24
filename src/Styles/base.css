@@ -1,0 +1,109 @@
+/* ============================================================
+   NeuroQuiz Base Styles
+   Global page background, ambient layers, dark + light modes.
+============================================================ */
+
+/* ── Page background ──────────────────────────────────────── */
+body {
+  background: var(--bg);
+  color:      var(--text-primary);
+  overflow-x: hidden;
+  transition: background var(--transition-slow), color var(--transition-slow);
+}
+
+/* ── Ambient gradient layer ───────────────────────────────── */
+.background {
+  position: fixed;
+  inset:    0;
+  overflow: hidden;
+  z-index:  -3;
+  background:
+    radial-gradient(circle at top    left,  rgba(0,229,255,.14), transparent 38%),
+    radial-gradient(circle at bottom right, rgba(124,58,237,.14), transparent 38%);
+  transition: background var(--transition-slow);
+}
+
+[data-theme="light"] .background {
+  background:
+    radial-gradient(circle at top    left,  rgba(0,229,255,.06), transparent 38%),
+    radial-gradient(circle at bottom right, rgba(124,58,237,.06), transparent 38%);
+}
+
+/* ── Animated gradient blobs ──────────────────────────────── */
+.gradient {
+  position:      absolute;
+  width:         700px;
+  height:        700px;
+  border-radius: 50%;
+  filter:        blur(120px);
+  opacity:       .28;
+  animation:     floatGradient 18s ease-in-out infinite;
+}
+
+.gradient-1 { background: var(--color-primary);   top: -180px; left: -180px; }
+.gradient-2 { background: var(--color-secondary);  bottom: -180px; right: -180px; animation-delay: 6s; }
+
+[data-theme="light"] .gradient { opacity: .1; }
+
+/* ── Grid overlay ─────────────────────────────────────────── */
+.grid {
+  position: absolute;
+  inset:    0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+}
+
+[data-theme="light"] .grid {
+  background-image:
+    linear-gradient(rgba(0,0,0,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,.03) 1px, transparent 1px);
+}
+
+/* ── Noise texture ────────────────────────────────────────── */
+.noise {
+  position:       fixed;
+  inset:          0;
+  opacity:        .045;
+  background-image: url("https://www.transparenttextures.com/patterns/noise.png");
+  pointer-events: none;
+  z-index:        -1;
+}
+
+[data-theme="light"] .noise { opacity: .02; }
+
+/* ── Floating orbs ────────────────────────────────────────── */
+.orb {
+  position:      fixed;
+  border-radius: 50%;
+  filter:        blur(90px);
+  opacity:       .35;
+  animation:     floatOrb 16s ease-in-out infinite;
+  z-index:       -2;
+  pointer-events: none;
+}
+
+.orb1 { width: 250px; height: 250px; background: var(--color-primary);   top:  12%; left:  8%; }
+.orb2 { width: 300px; height: 300px; background: var(--color-secondary);  right: 5%; bottom: 15%; animation-delay: 5s; }
+.orb3 { width: 180px; height: 180px; background: var(--color-accent);    top:  70%; left:  40%; animation-delay: 10s; }
+
+[data-theme="light"] .orb { opacity: .12; }
+
+/* ── Scrollbar ────────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 6px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: rgba(255,255,255,.15); border-radius: 999px; }
+
+[data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(0,0,0,.15); }
+
+/* ── Focus outline ────────────────────────────────────────── */
+:focus-visible {
+  outline:        2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius:  4px;
+}
+
+/* ── Selection ────────────────────────────────────────────── */
+::selection { background: rgba(0,229,255,.25); color: var(--text-primary); }

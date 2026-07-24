@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="NeuroQuiz — Modern interactive quiz platform for JavaScript, HTML, and CSS. Challenge yourself with timed quizzes and instant feedback." />
+    <meta name="theme-color" content="#050816" />
+
+    <!-- Open Graph -->
+    <meta property="og:title"       content="NeuroQuiz" />
+    <meta property="og:description" content="Master programming knowledge one challenge at a time." />
+    <meta property="og:type"        content="website" />
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- DNS Prefetch for CDN resources (optional) -->
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+
+    <title>NeuroQuiz — Master Knowledge. One Challenge at a Time.</title>
+  </head>
+  <body>
+    <div id="app" role="main" data-preload="true"></div>
+    
+    <!-- Main app script (deferred for non-blocking render) -->
+    <script type="module" defer src="/src/main.js"></script>
+
+    <!-- Performance monitoring (loads async after app) -->
+    <script async>
+      // Capture Core Web Vitals
+      if ('web-vital' in window) {
+        window.addEventListener('load', () => {
+          const perfData = performance.getEntries();
+          const fcp = perfData.find(e => e.name === 'first-contentful-paint');
+          const lcp = perfData.find(e => e.name === 'largest-contentful-paint');
+          console.log('[CWV] FCP:', fcp?.startTime, 'LCP:', lcp?.startTime);
+        });
+      }
+    </script>
+  </body>
+</html>

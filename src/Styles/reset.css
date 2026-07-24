@@ -1,0 +1,46 @@
+/* ============================================================
+   NeuroQuiz Reset
+   Modern opinionated reset on top of browser defaults.
+============================================================ */
+
+*, *::before, *::after {
+  margin:     0;
+  padding:    0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body { min-height: 100vh; overflow-x: hidden; }
+
+img, picture, video, canvas, svg {
+  display:   block;
+  max-width: 100%;
+}
+
+input, button, textarea, select { font: inherit; }
+
+button {
+  cursor:     pointer;
+  border:     none;
+  background: none;
+}
+
+a { text-decoration: none; color: inherit; }
+
+ul, ol { list-style: none; }
+
+p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
+
+/* Remove animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration:   0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration:  0.01ms !important;
+  }
+}

@@ -1,0 +1,174 @@
+/* ============================================================
+   NeuroQuiz Design Tokens
+   Single source of truth for all design values.
+   Dark theme is default. Light theme via [data-theme="light"].
+============================================================ */
+
+:root {
+
+  /* ── Palette ─────────────────────────────────── */
+  --color-primary:   #00E5FF;
+  --color-secondary: #7C3AED;
+  --color-accent:    #5EEAD4;
+  --color-success:   #22C55E;
+  --color-warning:   #FACC15;
+  --color-danger:    #EF4444;
+
+  /* ── Dark Theme Surfaces ─────────────────────── */
+  --bg:              #050816;
+  --bg-surface:      rgba(18, 24, 38, 0.72);
+  --bg-surface-alt:  rgba(24, 31, 48, 0.82);
+  --bg-card:         rgba(255, 255, 255, 0.04);
+  --bg-glass:        rgba(255, 255, 255, 0.06);
+  --bg-glass-hover:  rgba(255, 255, 255, 0.09);
+  --bg-input:        rgba(255, 255, 255, 0.05);
+  --bg-overlay:      rgba(0, 0, 0, 0.65);
+
+  /* ── Text ────────────────────────────────────── */
+  --text-primary:   #F8FAFC;
+  --text-secondary: #CBD5E1;
+  --text-muted:     #94A3B8;
+  --text-disabled:  #475569;
+
+  /* ── Borders ─────────────────────────────────── */
+  --border-color:   rgba(255, 255, 255, 0.08);
+  --border-light:   rgba(255, 255, 255, 0.12);
+  --border-focus:   var(--color-primary);
+
+  /* ── Gradients ───────────────────────────────── */
+  --gradient-primary:  linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  --gradient-success:  linear-gradient(135deg, #22C55E, #16A34A);
+  --gradient-danger:   linear-gradient(135deg, #EF4444, #B91C1C);
+  --gradient-warning:  linear-gradient(135deg, #FACC15, #D97706);
+  --gradient-surface:  linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+  --gradient-hero:     radial-gradient(circle at 60% 40%, rgba(0,229,255,.12), transparent 60%),
+                       radial-gradient(circle at 20% 80%, rgba(124,58,237,.12), transparent 60%);
+
+  /* ── Spacing scale (4pt grid) ────────────────── */
+  --space-1:  0.25rem;   /*  4px */
+  --space-2:  0.5rem;    /*  8px */
+  --space-3:  0.75rem;   /* 12px */
+  --space-4:  1rem;      /* 16px */
+  --space-5:  1.25rem;   /* 20px */
+  --space-6:  1.5rem;    /* 24px */
+  --space-7:  2rem;      /* 32px */
+  --space-8:  2.5rem;    /* 40px */
+  --space-9:  3rem;      /* 48px */
+  --space-10: 4rem;      /* 64px */
+  --space-11: 5rem;      /* 80px */
+  --space-12: 6rem;      /* 96px */
+
+  /* ── Border radius ───────────────────────────── */
+  --radius-sm:   8px;
+  --radius-md:   14px;
+  --radius-lg:   20px;
+  --radius-xl:   28px;
+  --radius-2xl:  36px;
+  --radius-full: 9999px;
+
+  /* ── Typography ──────────────────────────────── */
+  --font-display: 'Sora', sans-serif;
+  --font-body:    'Inter', sans-serif;
+
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-md:   1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  1.875rem;
+  --text-4xl:  2.25rem;
+  --text-5xl:  3rem;
+
+  --fw-regular:   400;
+  --fw-medium:    500;
+  --fw-semibold:  600;
+  --fw-bold:      700;
+  --fw-extrabold: 800;
+
+  --lh-tight:  1.1;
+  --lh-snug:   1.35;
+  --lh-normal: 1.6;
+  --lh-loose:  1.85;
+
+  /* ── Shadows ─────────────────────────────────── */
+  --shadow-sm:    0 4px 16px rgba(0,0,0,.25);
+  --shadow-md:    0 8px 32px rgba(0,0,0,.35);
+  --shadow-lg:    0 20px 60px rgba(0,0,0,.45);
+  --shadow-xl:    0 32px 80px rgba(0,0,0,.55);
+  --shadow-glow:  0 0 40px rgba(0,229,255,.3);
+  --shadow-glow-sm: 0 0 20px rgba(0,229,255,.2);
+
+  /* ── Badge Colors ────────────────────────────– */
+  --badge-success-bg:    rgba(34,197,94,.15);
+  --badge-success-color: #22C55E;
+  --badge-success-border: rgba(34,197,94,.25);
+
+  --badge-warning-bg:    rgba(250,204,21,.15);
+  --badge-warning-color: #FACC15;
+  --badge-warning-border: rgba(250,204,21,.25);
+
+  --badge-danger-bg:     rgba(239,68,68,.15);
+  --badge-danger-color:  #EF4444;
+  --badge-danger-border: rgba(239,68,68,.25);
+
+  --badge-muted-bg:      var(--bg-glass);
+  --badge-muted-color:   var(--text-muted);
+  --badge-muted-border:  var(--border-color);
+
+  /* ── Button Hover/Active ─────────────────────– */
+  --btn-lift-hover: translateY(-3px);
+  --btn-lift-shadow: var(--shadow-lg);
+  --btn-tap-active: scale(0.98);
+
+  /* ── Blur ────────────────────────────────────── */
+  --blur-sm:  8px;
+  --blur-md:  20px;
+  --blur-lg:  35px;
+  --blur-xl:  60px;
+
+  /* ── Transitions ─────────────────────────────── */
+  --transition-fast:   0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow:   0.5s ease;
+  --transition-spring: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ── Z-index layers ──────────────────────────── */
+  --z-base:    1;
+  --z-above:   10;
+  --z-modal:   100;
+  --z-toast:   200;
+  --z-overlay: 50;
+
+  /* ── Container ───────────────────────────────── */
+  --container-max: 1280px;
+  --container-pad: clamp(1rem, 4vw, 3rem);
+}
+
+/* ── Light Theme Override ─────────────────────────────────── */
+[data-theme="light"] {
+  --bg:             #F0F4FF;
+  --bg-surface:     rgba(255, 255, 255, 0.85);
+  --bg-surface-alt: rgba(240, 244, 255, 0.9);
+  --bg-card:        rgba(255, 255, 255, 0.9);
+  --bg-glass:       rgba(255, 255, 255, 0.7);
+  --bg-glass-hover: rgba(255, 255, 255, 0.85);
+  --bg-input:       rgba(255, 255, 255, 0.8);
+  --bg-overlay:     rgba(0, 0, 0, 0.4);
+
+  --text-primary:   #0F172A;
+  --text-secondary: #334155;
+  --text-muted:     #64748B;
+  --text-disabled:  #CBD5E1;
+
+  --border-color:   rgba(0, 0, 0, 0.08);
+  --border-light:   rgba(0, 0, 0, 0.12);
+
+  --shadow-sm:  0 4px 16px rgba(0,0,0,.08);
+  --shadow-md:  0 8px 32px rgba(0,0,0,.12);
+  --shadow-lg:  0 20px 60px rgba(0,0,0,.15);
+  --shadow-xl:  0 32px 80px rgba(0,0,0,.18);
+
+  --gradient-hero: radial-gradient(circle at 60% 40%, rgba(0,229,255,.08), transparent 60%),
+                   radial-gradient(circle at 20% 80%, rgba(124,58,237,.08), transparent 60%);
+}

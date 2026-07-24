@@ -1,0 +1,165 @@
+/* ============================================================
+   NeuroQuiz — Optimized Animations
+   GPU-accelerated with transform/opacity only (no layout shifts).
+   Respects prefers-reduced-motion for accessibility.
+============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration:   0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration:  0.01ms !important;
+  }
+}
+
+/* ── Page entrance animations ────────────────────────────────– */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes slideInDown {
+  from { 
+    opacity: 0; 
+    transform: translateY(-20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes slideInLeft {
+  from { 
+    opacity: 0; 
+    transform: translateX(-30px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+@keyframes slideInRight {
+  from { 
+    opacity: 0; 
+    transform: translateX(30px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+@keyframes scaleIn {
+  from { 
+    opacity: 0; 
+    transform: scale(0.95); 
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
+}
+
+/* ── Utility animations ────────────────────────────────────── */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes shimmer {
+  0% { 
+    background-position: -1000px 0; 
+  }
+  100% { 
+    background-position: 1000px 0; 
+  }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(0,229,255,.3); }
+  50% { box-shadow: 0 0 40px rgba(0,229,255,.5); }
+}
+
+/* ── Micro-interactions ───────────────────────────────────────– */
+
+/* Button press ripple */
+@keyframes ripple {
+  to {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+.ripple-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  transform: scale(0);
+  animation: ripple 0.55s ease-out forwards;
+  pointer-events: none;
+}
+
+/* Timer warning pulse */
+@keyframes timerWarning {
+  0%, 100% { color: var(--color-warning); }
+  50% { color: var(--color-danger); }
+}
+
+/* Score ring stroke animation (CSS-based, not GSAP) */
+@keyframes scoreRingFill {
+  from { stroke-dashoffset: 345; }
+  to { stroke-dashoffset: 0; }
+}
+
+.score-ring-fill {
+  animation: scoreRingFill 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards !important;
+}
+
+/* ── Reduced animation variants ───────────────────────────────– */
+
+.btn-primary {
+  will-change: transform;
+}
+
+.btn-primary:hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.surface-card {
+  will-change: transform;
+}
+
+.surface-card:hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Remove expensive backdrop-filter on low-end devices */
+@supports (backdrop-filter: blur(0)) {
+  .bg-glass {
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+  }
+}
+
+@supports not (backdrop-filter: blur(0)) {
+  .bg-glass {
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
