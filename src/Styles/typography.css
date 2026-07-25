@@ -170,4 +170,22 @@ p.small {
   text-decoration: none;
 }
 
+.logo-icon {
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.35));
+  transition: filter var(--transition-normal), transform var(--transition-normal);
+}
+
+.logo-text {
+  background: linear-gradient(110deg, #ffffff 0%, #a5b4fc 50%, #00e5ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.logo:hover .logo-icon {
+  filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.6));
+  transform: rotate(-8deg) scale(1.1);
+}
+
 .logo:hover { transform: scale(1.04); }

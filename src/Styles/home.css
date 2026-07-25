@@ -784,8 +784,8 @@ select option { background: #0f172a; color: #f8fafc; }
 }
 
 .footer-logo-icon {
-  font-size: 1.5rem;
-  line-height: 1;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 4px rgba(0, 229, 255, 0.3));
 }
 
 .footer-logo-text {

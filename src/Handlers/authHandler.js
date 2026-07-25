@@ -48,7 +48,6 @@ export function mountAuthModal() {
   const div = document.createElement("div");
   div.innerHTML = AuthModal({ mode: _mode });
   document.body.appendChild(div.firstElementChild);
-  _bindModalInternals(null); // bind with no renderApp yet — will rebind on use
 }
 
 // ── Internal helpers ──────────────────────────────────────────
@@ -57,27 +56,67 @@ export function mountAuthModal() {
 function _openModal(renderApp, mode = _mode) {
   _mode = mode;
 
-  // Re-render modal content for the correct mode
-  const existing = document.getElementById("auth-modal");
-  if (existing) existing.remove();
+  // Remove any existing modal
+  document.getElementById("auth-modal")?.remove();
 
+  // Create fresh
   const div = document.createElement("div");
   div.innerHTML = AuthModal({ mode: _mode });
   document.body.appendChild(div.firstElementChild);
 
   const modal = document.getElementById("auth-modal");
   modal.hidden = false;
-  _bindModalInternals(renderApp);
 
-  // Focus first input
-  setTimeout(() => {
-    const first = modal.querySelector("input:not([tabindex='-1'])");
-    first?.focus();
-  }, 60);
-
-  // Close on backdrop click
+  // ── Single delegated listener on the modal root ──────────
+  // Handles ALL clicks inside the modal — no stacking risk
   modal.addEventListener("click", (e) => {
-    if (e.target === modal) _closeModal();
+    const target = e.target;
+
+    // Close on backdrop
+    if (target === modal) { _closeModal(); return; }
+
+    // Close button
+    if (target.closest("#auth-close")) { _closeModal(); return; }
+
+    // Mode tabs
+    const tab = target.closest(".auth-tab");
+    if (tab?.dataset.mode) { _openModal(renderApp, tab.dataset.mode); return; }
+
+    // Switch link
+    const switchBtn = target.closest(".auth-switch-btn");
+    if (switchBtn?.dataset.mode) { _openModal(renderApp, switchBtn.dataset.mode); return; }
+
+    // Input method toggle
+    const methodBtn = target.closest(".auth-method-btn");
+    if (methodBtn?.dataset.method) {
+      _method = methodBtn.dataset.method;
+      modal.querySelectorAll(".auth-method-btn").forEach((b) => {
+        b.classList.toggle("active", b === methodBtn);
+        b.setAttribute("aria-pressed", String(b === methodBtn));
+      });
+      _updateIdentifierField();
+      return;
+    }
+
+    // Password toggle
+    if (target.closest("#auth-pw-toggle")) {
+      const input = modal.querySelector("#auth-password");
+      if (input) input.type = input.type === "password" ? "text" : "password";
+      return;
+    }
+
+    // Forgot password
+    if (target.closest("#auth-forgot")) {
+      e.preventDefault();
+      _showError("Password reset is not available in demo mode.");
+      return;
+    }
+  });
+
+  // Form submit (needs separate listener — "click" doesn't catch submit)
+  modal.querySelector("#auth-form")?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    _handleSubmit(renderApp);
   });
 
   // Close on Escape
@@ -85,75 +124,15 @@ function _openModal(renderApp, mode = _mode) {
     if (e.key === "Escape") { _closeModal(); document.removeEventListener("keydown", onKey); }
   };
   document.addEventListener("keydown", onKey);
+
+  // Focus first input
+  setTimeout(() => {
+    modal.querySelector("input:not([tabindex='-1'])")?.focus();
+  }, 60);
 }
 
 function _closeModal() {
-  const modal = document.getElementById("auth-modal");
-  if (modal) modal.hidden = true;
-}
-
-/** Bind all interactions inside the modal */
-function _bindModalInternals(renderApp) {
-  // Close button
-  const closeBtn = document.getElementById("auth-close");
-  if (closeBtn) {
-    closeBtn.addEventListener("click", _closeModal);
-  }
-
-  // Mode tabs (Login / Sign Up)
-  document.querySelectorAll(".auth-tab").forEach((tab) => {
-    tab.addEventListener("click", () => {
-      _openModal(renderApp, tab.dataset.mode);
-    });
-  });
-
-  // Switch link at bottom
-  document.querySelectorAll(".auth-switch-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      _openModal(renderApp, btn.dataset.mode);
-    });
-  });
-
-  // Input method toggle (Email / Mobile)
-  document.querySelectorAll(".auth-method-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      _method = btn.dataset.method;
-      document.querySelectorAll(".auth-method-btn").forEach((b) => {
-        b.classList.toggle("active", b === btn);
-        b.setAttribute("aria-pressed", String(b === btn));
-      });
-      _updateIdentifierField();
-    });
-  });
-
-  // Password visibility toggle
-  const pwToggle = document.getElementById("auth-pw-toggle");
-  if (pwToggle) {
-    pwToggle.addEventListener("click", () => {
-      const input = document.getElementById("auth-password");
-      if (!input) return;
-      const isHidden = input.type === "password";
-      input.type = isHidden ? "text" : "password";
-    });
-  }
-
-  // Form submit
-  const form = document.getElementById("auth-form");
-  if (form) {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      _handleSubmit(renderApp);
-    });
-  }
-
-  // Forgot password (UI only — no backend)
-  const forgotBtn = document.getElementById("auth-forgot");
-  if (forgotBtn) {
-    forgotBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      _showError("Password reset is not available in demo mode. Check your stored credentials.");
-    });
-  }
+  document.getElementById("auth-modal")?.remove();
 }
 
 /** Swap identifier field between email and mobile */

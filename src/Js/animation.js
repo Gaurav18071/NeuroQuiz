@@ -5,6 +5,10 @@
 
 import { gsap } from "gsap";
 
+// Suppress "target not found" warnings — some selectors are screen-specific
+// and intentionally absent on other screens (e.g. .quiz-card on the home page).
+gsap.config({ nullTargetWarn: false });
+
 /**
  * Animate the home page in.
  * Safe to call even if some elements don't exist — GSAP skips

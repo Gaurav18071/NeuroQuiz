@@ -16,12 +16,15 @@ import { gsap } from "gsap";
  * @param {"home"|"quiz"|"result"} screen
  */
 export function animatePage(screen = "home") {
-  // Always fade the page wrapper in
-  gsap.fromTo(
-    ".page",
-    { opacity: 0 },
-    { opacity: 1, duration: 0.4, ease: "power2.out" }
-  );
+  // Fade the page wrapper in only if it exists (home screen has no .page)
+  const pageEl = document.querySelector(".page");
+  if (pageEl) {
+    gsap.fromTo(
+      pageEl,
+      { opacity: 0 },
+      { opacity: 1, duration: 0.4, ease: "power2.out" }
+    );
+  }
 
   switch (screen) {
     case "quiz":
@@ -38,6 +41,8 @@ export function animatePage(screen = "home") {
 // ── Home entrance ─────────────────────────────────────────────
 
 function _animateHomeEntrance() {
+  // .quiz-card and .result-card only exist on quiz/result screens;
+  // nullTargetWarn is disabled globally via gsap.config() in animation.js
   gsap.fromTo(
     ".quiz-card, .result-card",
     { opacity: 0, scale: 0.96, y: 16 },
