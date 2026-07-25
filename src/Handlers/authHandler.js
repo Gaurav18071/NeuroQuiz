@@ -24,8 +24,10 @@ import { showToast } from "../Components/Toast";
 import { attachListener } from "../Utils/performance";
 
 // ── Current modal mode ────────────────────────────────────────
-let _mode   = "login";   // "login" | "signup"
-let _method = "email";   // "email" | "mobile"
+let _mode     = "login";   // "login" | "signup"
+let _method   = "email";   // "email" | "mobile"
+let _openedAt = 0;
+let _isOpening = false;
 
 // ── Public API ────────────────────────────────────────────────
 
@@ -54,10 +56,23 @@ export function mountAuthModal() {
 
 /** Open the auth modal */
 function _openModal(renderApp, mode = _mode) {
-  _mode = mode;
+  const existing = document.getElementById("auth-modal");
 
-  // Remove any existing modal
-  document.getElementById("auth-modal")?.remove();
+  // If already open in DOM or currently opening, do not duplicate
+  if (existing) {
+    if (_mode !== mode) {
+      existing.remove();
+    } else {
+      return;
+    }
+  }
+
+  if (_isOpening) return;
+  _isOpening = true;
+  setTimeout(() => { _isOpening = false; }, 400);
+
+  _mode     = mode;
+  _openedAt = Date.now();
 
   // Create fresh
   const div = document.createElement("div");
@@ -65,11 +80,14 @@ function _openModal(renderApp, mode = _mode) {
   document.body.appendChild(div.firstElementChild);
 
   const modal = document.getElementById("auth-modal");
-  modal.hidden = false;
+  if (modal) modal.hidden = false;
 
   // ── Single delegated listener on the modal root ──────────
   // Handles ALL clicks inside the modal — no stacking risk
   modal.addEventListener("click", (e) => {
+    // Ignore mobile ghost clicks / tap-through for 350ms after open
+    if (Date.now() - _openedAt < 350) return;
+
     const target = e.target;
 
     // Close on backdrop
@@ -232,8 +250,12 @@ function _setLoading(on) {
 function _wireLoginButton(renderApp) {
   const btn = document.getElementById("btn-login");
   if (btn) {
+    if (btn.dataset.wired) return;
+    btn.dataset.wired = "true";
+
     attachListener(btn, "click", (e) => {
       e.preventDefault();
+      e.stopPropagation();
       _openModal(renderApp, "login");
     });
   }

@@ -9,13 +9,18 @@
   box-sizing: border-box;
 }
 
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 html {
   scroll-behavior: smooth;
   text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
 
-body { min-height: 100vh; overflow-x: hidden; }
+body { min-height: 100vh; }
 
 img, picture, video, canvas, svg {
   display:   block;
