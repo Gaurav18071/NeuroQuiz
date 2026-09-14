@@ -109,30 +109,3 @@ export function remove(key) {
   }
 }
 
-/**
- * Check if a key exists in localStorage.
- * @param {string} key
- * @returns {boolean}
- */
-export function exists(key) {
-  try {
-    return localStorage.getItem(key) !== null;
-  } catch {
-    return false;
-  }
-}
-
-/**
- * Clear all items from localStorage.
- * Use with caution — affects other apps sharing the same origin.
- * @returns {boolean} success
- */
-export function clearAll() {
-  try {
-    localStorage.clear();
-    return true;
-  } catch (err) {
-    console.error("[Storage] Failed to clear all:", err.message);
-    return false;
-  }
-}

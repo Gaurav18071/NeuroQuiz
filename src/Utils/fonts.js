@@ -19,11 +19,4 @@ export function preloadFonts() {
   }
 }
 
-/**
- * Check if fonts have loaded.
- * Useful for delaying heavy animations until fonts render.
- */
-export function fontsReady() {
-  return document.documentElement.classList.contains('fonts-loaded') ||
-         (document.fonts && document.fonts.status === 'loaded');
-}
+

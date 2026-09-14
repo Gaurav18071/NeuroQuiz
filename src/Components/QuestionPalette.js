@@ -3,8 +3,8 @@
    Grid of numbered buttons showing answered / active / skipped state.
 ============================================================ */
 
-import { state } from "../Utils/state";
-import { getAnswerFor } from "../Utils/quizEngine";
+import { state } from "/Utils/state";
+import { getAnswerFor } from "/Utils/quizEngine";
 
 export function QuestionPalette() {
   const qIndex  = state.quiz.currentQuestion;

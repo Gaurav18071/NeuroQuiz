@@ -3,8 +3,8 @@
    Renders the current question and its answer options.
 ============================================================ */
 
-import { getCurrentQuestion, getAnswerFor } from "../Utils/quizEngine";
-import { state } from "../Utils/state";
+import { getCurrentQuestion, getAnswerFor } from "/Utils/quizEngine";
+import { state } from "/Utils/state";
 
 export function QuestionCard() {
   const qIndex   = state.quiz.currentQuestion;

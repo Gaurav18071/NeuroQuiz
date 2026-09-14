@@ -4,7 +4,6 @@
 
 import { Navbar }       from "../Components/Navbar";
 import { Hero }         from "../Components/Hero";
-import { Stats }        from "../Components/Stats";
 import { Features }     from "../Components/Features";
 import { HowItWorks }   from "../Components/HowItWorks";
 import { LiveStats }    from "../Components/LiveStats";
@@ -29,7 +28,6 @@ export function HomePage() {
     <div class="container">
       ${Navbar({ screen: "home" })}
       ${Hero()}
-      ${Stats()}
     </div>
 
     ${Features()}

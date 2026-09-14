@@ -133,26 +133,6 @@ export function resetQuiz() {
 
 // ── Stats helpers ─────────────────────────────────────────────
 
-/** Number of questions skipped (selectedOption === null) */
-export function getSkipped() {
-  const answered = state.quiz.answers.filter((a) => a.selectedOption !== null).length;
-  return state.quiz.questions.length - answered;
-}
-
-/** Accuracy percentage (0–100) */
-export function getAccuracy() {
-  const answered = state.quiz.answers.filter((a) => a.selectedOption !== null).length;
-  if (!answered) return 0;
-  return Math.round((state.quiz.score / answered) * 100);
-}
-
-/** Formatted time string e.g. "2m 34s" */
-export function getFormattedTime(seconds) {
-  const s = seconds ?? state.quiz.timeTaken;
-  if (s < 60) return `${s}s`;
-  return `${Math.floor(s / 60)}m ${s % 60}s`;
-}
-
 /**
  * Full stats object — consumed by Result page.
  * @returns {{
@@ -197,7 +177,7 @@ export function getQuizStats() {
     accuracy, score,
     percentage: pct,
     timeTaken,
-    formattedTime: getFormattedTime(timeTaken),
+    formattedTime: timeTaken < 60 ? `${timeTaken}s` : `${Math.floor(timeTaken / 60)}m ${timeTaken % 60}s`,
     category,
     difficulty,
     categoryBreakdown,
@@ -253,8 +233,4 @@ export function startTimer(onTimeout) {
 export function stopTimer() {
   clearInterval(_timerInterval);
   _timerInterval = null;
-}
-
-export function isTimerRunning() {
-  return _timerInterval !== null;
 }

@@ -88,26 +88,3 @@ export function measureCoreWebVitals() {
   }
 }
 
-/**
- * Get collected metrics.
- */
-export function getMetrics() {
-  return { ...metrics };
-}
-
-/**
- * Send metrics to analytics (optional).
- * @param {function} sendFn callback to send metrics to server
- */
-export function reportMetrics(sendFn) {
-  if (typeof sendFn !== 'function') return;
-
-  // Report after page has settled
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      const data = getMetrics();
-      console.log('[Metrics] Reporting:', data);
-      sendFn(data);
-    }, 3000);
-  });
-}

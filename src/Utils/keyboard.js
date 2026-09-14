@@ -52,13 +52,6 @@ export function initKeyboard() {
   _active = true;
 }
 
-/** Remove the keyboard listener and clear all shortcuts */
-export function destroyKeyboard() {
-  document.removeEventListener("keydown", _onKeyDown);
-  _registry.clear();
-  _active = false;
-}
-
 /**
  * Register a shortcut.
  * @param {string}   key      e.g. "arrowleft", "ctrl+enter", "escape", "1"
@@ -67,14 +60,6 @@ export function destroyKeyboard() {
  */
 export function registerShortcut(key, handler, { global: isGlobal = false } = {}) {
   _registry.set(key.toLowerCase(), { handler, global: isGlobal });
-}
-
-/**
- * Remove a previously registered shortcut.
- * @param {string} key
- */
-export function unregisterShortcut(key) {
-  _registry.delete(key.toLowerCase());
 }
 
 /** Remove all shortcuts (call between screen transitions) */

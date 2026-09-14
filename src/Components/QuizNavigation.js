@@ -3,8 +3,8 @@
    Previous / Next / Submit buttons + keyboard hints.
 ============================================================ */
 
-import { state } from "../Utils/state";
-import { isLastQuestion } from "../Utils/quizEngine";
+import { state } from "/Utils/state";
+import { isLastQuestion } from "/Utils/quizEngine";
 
 export function QuizNavigation() {
   const qIndex = state.quiz.currentQuestion;

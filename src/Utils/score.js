@@ -73,20 +73,6 @@ export function getRingColor(pct) {
 }
 
 /**
- * Return a short motivational label for a category score.
- * @param {number} correct
- * @param {number} total
- * @returns {string}
- */
-export function getCategoryLabel(correct, total) {
-  const pct = total ? Math.round((correct / total) * 100) : 0;
-  if (pct === 100) return "Perfect";
-  if (pct >= 70)   return "Strong";
-  if (pct >= 40)   return "Needs Work";
-  return "Review";
-}
-
-/**
  * Map a difficulty string to a display colour.
  * @param {"Easy"|"Medium"|"Hard"} diff
  * @returns {string} CSS colour

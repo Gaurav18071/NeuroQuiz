@@ -28,7 +28,7 @@ import { stopTimer, getQuizStats } from "./Utils/quizEngine";
 import { getSession, saveProgress, logout } from "./Utils/auth";
 import { isSoundEnabled, toggleSound } from "./Utils/sound";
 import { initKeyboard, clearShortcuts, registerShortcut } from "./Utils/keyboard";
-import { cleanupAllListeners, attachListener, prefersReducedMotion } from "./Utils/performance";
+import { cleanupAllListeners, attachListener } from "./Utils/performance";
 import { preloadFonts } from "./Utils/fonts";
 import { measureCoreWebVitals } from "./Utils/metrics";
 

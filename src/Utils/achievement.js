@@ -132,7 +132,3 @@ export function evaluateAchievements(stats) {
   return newlyWon;
 }
 
-/** Reset all achievements (dev utility) */
-export function resetAchievements() {
-  localStorage.removeItem(STORAGE_KEYS.ACHIEVEMENTS);
-}

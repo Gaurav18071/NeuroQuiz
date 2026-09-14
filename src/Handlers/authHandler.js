@@ -17,7 +17,6 @@ import {
   register,
   login,
   logout,
-  getProgress,
   isMobile,
 } from "../Utils/auth";
 import { showToast } from "../Components/Toast";
@@ -39,17 +38,6 @@ let _isOpening = false;
 export function attachAuthEvents(renderApp) {
   _wireLoginButton(renderApp);
   _wireNavDropdown(renderApp);
-}
-
-/**
- * Inject the AuthModal HTML into the document body once.
- * Called from main.js at boot.
- */
-export function mountAuthModal() {
-  if (document.getElementById("auth-modal")) return; // already mounted
-  const div = document.createElement("div");
-  div.innerHTML = AuthModal({ mode: _mode });
-  document.body.appendChild(div.firstElementChild);
 }
 
 // ── Internal helpers ──────────────────────────────────────────
@@ -324,79 +312,3 @@ function _wireNavDropdown(renderApp) {
   }
 }
 
-// ── Progress panel ────────────────────────────────────────────
-
-function _showProgressPanel() {
-  // Remove any existing progress modal
-  document.getElementById("progress-modal-overlay")?.remove();
-
-  const records = getProgress();
-
-  const rows = records.length
-    ? records.map((r) => {
-        const pct   = r.total ? Math.round((r.score / r.total) * 100) : 0;
-        const cls   = pct >= 75 ? "progress-score-good" : pct >= 50 ? "progress-score-avg" : "progress-score-poor";
-        return `
-          <tr>
-            <td>${r.date}</td>
-            <td>${r.category}</td>
-            <td>${r.difficulty}</td>
-            <td class="${cls}">${r.score}/${r.total} (${pct}%)</td>
-            <td>${r.accuracy}%</td>
-            <td>${r.timeTaken}s</td>
-          </tr>
-        `;
-      }).join("")
-    : "";
-
-  const content = records.length
-    ? `<table class="progress-table">
-         <thead>
-           <tr>
-             <th>Date</th><th>Category</th><th>Difficulty</th>
-             <th>Score</th><th>Accuracy</th><th>Time</th>
-           </tr>
-         </thead>
-         <tbody>${rows}</tbody>
-       </table>`
-    : `<div class="progress-empty">
-         <p style="font-size:2rem;margin-bottom:.5rem">📊</p>
-         <p>No quiz results yet.<br>Complete a quiz to see your progress here.</p>
-       </div>`;
-
-  const overlay = document.createElement("div");
-  overlay.id        = "progress-modal-overlay";
-  overlay.className = "auth-overlay";
-  overlay.setAttribute("role", "dialog");
-  overlay.setAttribute("aria-modal", "true");
-  overlay.setAttribute("aria-labelledby", "progress-title");
-  overlay.innerHTML = `
-    <div class="auth-modal progress-modal">
-      <button class="auth-close" id="progress-close" aria-label="Close progress panel">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-             stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-          <line x1="18" y1="6" x2="6" y2="18"/>
-          <line x1="6"  y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
-      <div class="auth-header">
-        <div class="auth-logo">📊</div>
-        <h2 id="progress-title">My Progress</h2>
-        <p>${state.auth?.name ?? ""} · ${records.length} quiz${records.length !== 1 ? "zes" : ""} completed</p>
-      </div>
-      ${content}
-    </div>
-  `;
-
-  document.body.appendChild(overlay);
-
-  // Close handlers
-  document.getElementById("progress-close")
-    ?.addEventListener("click", () => overlay.remove());
-  overlay.addEventListener("click", (e) => { if (e.target === overlay) overlay.remove(); });
-
-  const onKey = (e) => {
-    if (e.key === "Escape") { overlay.remove(); document.removeEventListener("keydown", onKey); }
-  };
-  document.addEventListener("keydown", onKey);
-}
