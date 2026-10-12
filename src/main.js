@@ -26,7 +26,7 @@ import { saveState, loadState } from "./Utils/storage";
 import { loadTheme, toggleTheme } from "./Utils/theme";
 import { stopTimer, getQuizStats } from "./Utils/quizEngine";
 import { getSession, saveProgress, logout } from "./Utils/auth";
-import { isSoundEnabled, toggleSound } from "./Utils/sound";
+import { toggleSound } from "./Utils/sound";
 import { initKeyboard, clearShortcuts, registerShortcut } from "./Utils/keyboard";
 import { cleanupAllListeners, attachListener } from "./Utils/performance";
 import { preloadFonts } from "./Utils/fonts";
@@ -40,7 +40,7 @@ import { showToast }          from "./Components/Toast";
 
 // ── Boot: register service worker ─────────────────────────────
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/public/service-worker.js')
+  navigator.serviceWorker.register('/service-worker.js')
     .then((reg) => console.log('[SW] Registered'))
     .catch((err) => console.warn('[SW] Registration failed:', err.message));
 }

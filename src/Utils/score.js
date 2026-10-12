@@ -23,7 +23,7 @@ export function getGrade(pct) {
   if (pct >= 75) return {
     label:      "Great",
     emoji:      "🌟",
-    badgeClass: "excellent",
+    badgeClass: "great",
     message:    "Great work! You clearly know your stuff.",
     color:      "#22C55E",
   };

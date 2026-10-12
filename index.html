@@ -27,12 +27,12 @@
     <div id="app" role="main" data-preload="true"></div>
     
     <!-- Main app script (deferred for non-blocking render) -->
-    <script type="module" defer src="/src/main.js"></script>
+    <script type="module" src="/src/main.js"></script>
 
     <!-- Performance monitoring (loads async after app) -->
     <script async>
       // Capture Core Web Vitals
-      if ('web-vital' in window) {
+      if ('web-vitals' in window) {
         window.addEventListener('load', () => {
           const perfData = performance.getEntries();
           const fcp = perfData.find(e => e.name === 'first-contentful-paint');

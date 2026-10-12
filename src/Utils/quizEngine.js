@@ -73,20 +73,20 @@ export function getAnswerFor(questionId) {
 export function nextQuestion() {
   if (state.quiz.currentQuestion < state.quiz.questions.length - 1) {
     state.quiz.currentQuestion++;
-    state.quiz.timeLeft = 30;
+    state.quiz.timeLeft = QUIZ.TIME_PER_QUESTION;
   }
 }
 
 export function previousQuestion() {
   if (state.quiz.currentQuestion > 0) {
     state.quiz.currentQuestion--;
-    state.quiz.timeLeft = 30;
+    state.quiz.timeLeft = QUIZ.TIME_PER_QUESTION;
   }
 }
 
 export function jumpToQuestion(index) {
   state.quiz.currentQuestion = index;
-  state.quiz.timeLeft        = 30;
+  state.quiz.timeLeft        = QUIZ.TIME_PER_QUESTION;
 }
 
 export function isLastQuestion() {
